@@ -3,16 +3,29 @@ import 'package:campus_connect_app/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+
+  bool validateCollegeConstraints(String email) {
+    //email follows the pattern 20CP010@bvmengineering.ac.in
+    if (!RegExp(
+            r'^\d{2}(?:CE|CP|EL|EE|EC|ME|PE|IT)\d{2}@bvmengineering\.ac\.in')
+        .hasMatch(email.toLowerCase())) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   void dispose() {
@@ -20,6 +33,8 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmpasswordController.dispose();
+    _usernameController.dispose();
   }
 
   @override
@@ -41,12 +56,48 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 64,
             ),
             const SizedBox(
-              height: 64,
+              height: 24,
+            ),
+            Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 64,
+                  backgroundColor: Color.fromARGB(255, 190, 190, 190),
+                  child: Icon(
+                    Icons.person,
+                    size: 64,
+                    color: Color.fromARGB(255, 237, 236, 236),
+                  ),
+                ),
+                Positioned(
+                  bottom: 3,
+                  left: 90,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add_a_photo_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            TextFieldInput(
+              textEditingController: _usernameController,
+              textInputType: TextInputType.text,
+              hintText: 'Enter Full Name',
+            ),
+            const SizedBox(
+              height: 24,
             ),
             TextFieldInput(
               textEditingController: _emailController,
               textInputType: TextInputType.emailAddress,
-              hintText: 'Enter your email or ID number',
+              hintText: 'Enter email',
             ),
             const SizedBox(
               height: 24,
@@ -54,14 +105,28 @@ class _LoginScreenState extends State<LoginScreen> {
             TextFieldInput(
               textEditingController: _passwordController,
               textInputType: TextInputType.text,
-              hintText: 'Enter your password',
+              hintText: 'Enter password',
+              isPassword: true,
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            TextFieldInput(
+              textEditingController: _confirmpasswordController,
+              textInputType: TextInputType.text,
+              hintText: 'Confirm password',
               isPassword: true,
             ),
             const SizedBox(
               height: 24,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                if (!validateCollegeConstraints(_emailController.text)) {
+                  print("Invalid college constraints");
+                  return;
+                }
+              },
               child: Container(
                 width: 100,
                 alignment: Alignment.center,
@@ -74,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     color: blueColor),
                 child: const Text(
-                  "Log in",
+                  "Sign up",
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -96,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
                   ),
-                  child: const Text("Don't have an account? "),
+                  child: const Text("Already have an account? "),
                 ),
                 GestureDetector(
                   onTap: () {},
@@ -105,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       vertical: 8,
                     ),
                     child: const Text(
-                      "Sign Up.",
+                      "Login.",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

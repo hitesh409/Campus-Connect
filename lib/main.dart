@@ -2,6 +2,7 @@ import 'package:campus_connect_app/responsive/mobile_screen_layout.dart';
 import 'package:campus_connect_app/responsive/responsive_layout_screen.dart';
 import 'package:campus_connect_app/responsive/web_screen_layout.dart';
 import 'package:campus_connect_app/screens/login_screen.dart';
+import 'package:campus_connect_app/screens/signup_screen.dart';
 import 'package:campus_connect_app/utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
           //   mobileScreenLayout: MobileScreenLayout(),
           //   webScreenLayout: WebScreenLayout(),
           // ),
-          const LoginScreen(),
+          //const LoginScreen()
+          const SignupScreen(),
     );
   }
 }
