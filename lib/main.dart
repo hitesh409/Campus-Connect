@@ -36,17 +36,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Campus Connect',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark()
-          .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-      home:
-          // const ResponsiveLayout(
-          //   mobileScreenLayout: MobileScreenLayout(),
-          //   webScreenLayout: WebScreenLayout(),
-          // ),
-          //const LoginScreen()
-          const SignupScreen(),
-    );
+        title: 'Campus Connect',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark()
+            .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
+        home:
+            // const ResponsiveLayout(
+            //   mobileScreenLayout: MobileScreenLayout(),
+            //   webScreenLayout: WebScreenLayout(),
+            // ),
+            const LoginScreen()
+        //const SignupScreen(),
+        );
   }
 }

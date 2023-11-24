@@ -1,4 +1,6 @@
+import 'package:campus_connect_app/resources/auth_methods.dart';
 import 'package:campus_connect_app/utils/colors.dart';
+import 'package:campus_connect_app/utils/utils.dart';
 import 'package:campus_connect_app/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -20,6 +23,23 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (res == 'success') {
+    } else {
+      showSnackBar(res, context);
+    }
   }
 
   @override
@@ -61,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 24,
             ),
             InkWell(
-              onTap: () {},
+              onTap: loginUser,
               child: Container(
                 width: 100,
                 alignment: Alignment.center,
@@ -73,13 +93,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     color: blueColor),
-                child: const Text(
-                  "Log in",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: _isLoading
+                    ? const Center(
+                        child: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        ),
+                      )
+                    : const Text(
+                        "Log in",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ),
             ),
             const SizedBox(
