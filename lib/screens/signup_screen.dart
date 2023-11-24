@@ -1,6 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:campus_connect_app/resources/auth_methods.dart';
+import 'package:campus_connect_app/responsive/mobile_screen_layout.dart';
+import 'package:campus_connect_app/responsive/responsive_layout_screen.dart';
+import 'package:campus_connect_app/responsive/web_screen_layout.dart';
+import 'package:campus_connect_app/screens/login_screen.dart';
 import 'package:campus_connect_app/utils/colors.dart';
 import 'package:campus_connect_app/utils/utils.dart';
 import 'package:campus_connect_app/widgets/text_field_input.dart';
@@ -74,6 +78,15 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (res != 'success') {
       showSnackBar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          ),
+        ),
+      );
     }
   }
 
@@ -92,6 +105,14 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _img = img;
     });
+  }
+
+  void navigatorToLogin() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
   }
 
   @override
@@ -161,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
               TextFieldInput(
                 textEditingController: _emailController,
                 textInputType: TextInputType.emailAddress,
-                hintText: 'Enter email',
+                hintText: 'Enter college email',
               ),
               const SizedBox(
                 height: 24,
@@ -233,7 +254,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: const Text("Already have an account? "),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: navigatorToLogin,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
