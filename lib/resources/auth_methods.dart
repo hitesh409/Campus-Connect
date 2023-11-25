@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:campus_connect_app/models/user.dart' as model;
 import 'package:campus_connect_app/resources/storege_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,15 +33,20 @@ class AuthMethods {
             .uploadImageToStorage('profilePics', file, false);
 
         //add user to database
-        _firestore.collection('users').doc(cred.user!.uid).set({
-          'uid': cred.user!.uid,
-          'username': username,
-          'email': email,
-          'Id': userId,
-          'role': userRole,
-          'networks': [],
-          'photoUrl': photoUrl,
-        });
+
+        model.User user = model.User(
+          email: email,
+          uid: cred.user!.uid,
+          photoUrl: photoUrl,
+          username: username,
+          userid: userId,
+          userrole: userRole,
+          networks: [],
+        );
+
+        await _firestore.collection('users').doc(cred.user!.uid).set(
+              user.toJson(),
+            );
 
         res = 'success';
       }
