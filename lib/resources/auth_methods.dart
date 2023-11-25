@@ -33,7 +33,6 @@ class AuthMethods {
             .uploadImageToStorage('profilePics', file, false);
 
         //add user to database
-
         model.User user = model.User(
           email: email,
           uid: cred.user!.uid,
@@ -72,5 +71,13 @@ class AuthMethods {
       res = err.toString();
     }
     return res;
+  }
+
+  // getting user deetails
+  Future<model.User> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snapshot =
+        await _firestore.collection('users').doc(currentUser.uid).get();
+    return model.User.fromSnap(snapshot);
   }
 }
