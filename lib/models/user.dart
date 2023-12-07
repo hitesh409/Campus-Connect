@@ -34,8 +34,8 @@ class User {
     return User(
         email: snapshot['email'],
         uid: snapshot['uid'],
-        photoUrl: snapshot['username'],
-        username: snapshot['email'],
+        photoUrl: snapshot['photoUrl'],
+        username: snapshot['username'],
         userid: snapshot['Id'],
         userrole: snapshot['role'],
         networks: snapshot['networks']);
