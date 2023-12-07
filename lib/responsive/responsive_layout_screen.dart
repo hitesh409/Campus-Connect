@@ -1,5 +1,5 @@
 import 'package:campus_connect_app/providers/user_provider.dart';
-import 'package:campus_connect_app/utils/dimensions.dart';
+import 'package:campus_connect_app/utils/globalvariables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

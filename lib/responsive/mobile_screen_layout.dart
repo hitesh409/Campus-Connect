@@ -1,5 +1,6 @@
 import 'package:campus_connect_app/providers/user_provider.dart';
 import 'package:campus_connect_app/utils/colors.dart';
+import 'package:campus_connect_app/utils/globalvariables.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,23 +49,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         controller: pageController,
         onPageChanged: onPageChanged,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          Center(
-            child: Text("Home"),
-          ),
-          Center(
-            child: Text("Chat"),
-          ),
-          Center(
-            child: Text("Create"),
-          ),
-          Center(
-            child: Text("Event"),
-          ),
-          Center(
-            child: Text("Notification"),
-          ),
-        ],
+        children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
