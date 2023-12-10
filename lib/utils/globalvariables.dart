@@ -1,19 +1,23 @@
 import 'package:campus_connect_app/screens/add_post_screen.dart';
+import 'package:campus_connect_app/screens/feed_Screen.dart';
+import 'package:campus_connect_app/screens/profile_screen.dart';
+import 'package:campus_connect_app/screens/search_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 const webScreenSize = 600;
-const homeScreenItems = [
-  Center(
-    child: Text("Home"),
-  ),
-  Center(
-    child: Text("Chat"),
-  ),
-  AddPostScreen(),
-  Center(
-    child: Text("Event"),
-  ),
-  Center(
+List<Widget> homeScreenItems = [
+  const FeedScreen(),
+  // Center(
+  //   child: Text("Chat"),
+  // ),
+  const SearchScreen(),
+  const AddPostScreen(),
+  // Center(
+  //   child: Text("Event"),
+  // ),
+  ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
+  const Center(
     child: Text("Notification"),
   ),
 ];
