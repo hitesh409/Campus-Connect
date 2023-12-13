@@ -8,15 +8,13 @@ import 'package:flutter/material.dart';
 const webScreenSize = 600;
 List<Widget> homeScreenItems = [
   const FeedScreen(),
-  // Center(
-  //   child: Text("Chat"),
-  // ),
-  const SearchScreen(),
+  Center(
+    child: Text("Chat"),
+  ),
   const AddPostScreen(),
-  // Center(
-  //   child: Text("Event"),
-  // ),
-  ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
+  Center(
+    child: Text("Event"),
+  ),
   const Center(
     child: Text("Notification"),
   ),

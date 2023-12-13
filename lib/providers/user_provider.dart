@@ -4,10 +4,12 @@ import 'package:flutter/foundation.dart';
 
 class UserProvider with ChangeNotifier {
   User? _user;
-  User get getUser => _user!; //getter method to access private member
+  final AuthMethods _authMethods = AuthMethods();
+
+  User get getUser => _user!;
 
   Future<void> refreshUser() async {
-    User user = await AuthMethods().getUserDetails();
+    User user = await _authMethods.getUserDetails();
     _user = user;
     notifyListeners();
   }
