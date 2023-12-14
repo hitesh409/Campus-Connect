@@ -10,10 +10,14 @@ class StorageMethods {
 
   //adding image to firebase storage
   Future<String> uploadImageToStorage(
-      String childName, Uint8List file, bool isPost) async {
+      String childName, Uint8List file, bool isPost, bool isEvent) async {
     Reference ref =
         _storage.ref().child(childName).child(_auth.currentUser!.uid);
     if (isPost) {
+      String id = const Uuid().v1();
+      ref = ref.child(id);
+    }
+    if (isEvent) {
       String id = const Uuid().v1();
       ref = ref.child(id);
     }

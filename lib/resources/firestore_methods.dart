@@ -1,3 +1,4 @@
+import 'package:campus_connect_app/models/event.dart';
 import 'package:campus_connect_app/models/post.dart';
 import 'package:campus_connect_app/resources/storege_methods.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,8 +13,8 @@ class FirestoreMethods {
       String username, String userid, String profImage) async {
     String res = "some error occurred";
     try {
-      String photoUrl =
-          await StorageMethods().uploadImageToStorage('posts', file, true);
+      String photoUrl = await StorageMethods()
+          .uploadImageToStorage('posts', file, true, false);
       String postId = const Uuid().v1();
       Post post = Post(
         description: description,
@@ -95,6 +96,71 @@ class FirestoreMethods {
     String res = "Some error occurred";
     try {
       await _firestore.collection('posts').doc(postId).delete();
+      res = 'success';
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+// upload event
+  Future<String> uploadEvent(String eventname, String venue, Uint8List file,
+      String uid, String username, String userid, String profImage) async {
+    String res = "some error occurred";
+    try {
+      String eventUrl = await StorageMethods()
+          .uploadImageToStorage('events', file, false, true);
+      String eventId = const Uuid().v1();
+      Event event = Event(
+        eventname: eventname,
+        venue: venue,
+        uid: uid,
+        eventId: eventId,
+        username: username,
+        userid: userid,
+        eventUrl: eventUrl,
+        profImage: profImage,
+        likes: [],
+        datePublished: DateTime.now(),
+      );
+
+      _firestore.collection('events').doc(eventId).set(
+            event.toJson(),
+          );
+      res = 'Success';
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+// like event
+  Future<String> likeEvent(String eventId, String uid, List likes) async {
+    String res = "Some error occurred";
+    try {
+      if (likes.contains(uid)) {
+        // if the likes list contains the user uid, we need to remove it
+        _firestore.collection('events').doc(eventId).update({
+          'likes': FieldValue.arrayRemove([uid])
+        });
+      } else {
+        // else we need to add uid to the likes array
+        _firestore.collection('events').doc(eventId).update({
+          'likes': FieldValue.arrayUnion([uid])
+        });
+      }
+      res = 'success';
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+// delete event
+  Future<String> deleteEvent(String eventId) async {
+    String res = "Some error occurred";
+    try {
+      await _firestore.collection('events').doc(eventId).delete();
       res = 'success';
     } catch (err) {
       res = err.toString();

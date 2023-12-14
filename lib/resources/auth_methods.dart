@@ -30,7 +30,7 @@ class AuthMethods {
             email: email, password: password);
 
         String photoUrl = await StorageMethods()
-            .uploadImageToStorage('profilePics', file, false);
+            .uploadImageToStorage('profilePics', file, false, false);
 
         //add user to database
         model.User user = model.User(
