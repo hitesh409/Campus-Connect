@@ -1,3 +1,4 @@
+import 'package:campus_connect_app/screens/add_event_screen.dart';
 import 'package:campus_connect_app/screens/add_post_screen.dart';
 import 'package:campus_connect_app/screens/feed_Screen.dart';
 import 'package:campus_connect_app/screens/profile_screen.dart';
@@ -12,9 +13,7 @@ List<Widget> homeScreenItems = [
     child: Text("Chat"),
   ),
   const AddPostScreen(),
-  Center(
-    child: Text("Event"),
-  ),
+  const EventScreen(),
   const Center(
     child: Text("Notification"),
   ),

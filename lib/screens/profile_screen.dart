@@ -2,7 +2,7 @@ import 'package:campus_connect_app/resources/auth_methods.dart';
 import 'package:campus_connect_app/resources/firestore_methods.dart';
 import 'package:campus_connect_app/screens/login_screen.dart';
 import 'package:campus_connect_app/utils/colors.dart';
-import 'package:campus_connect_app/utils/utils.dart';
+import 'package:campus_connect_app/utils/util.dart';
 import 'package:campus_connect_app/widgets/follow_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       userData = userSnap.data()!;
       followers = userSnap.data()!['networks'].length;
       isFollowing = userSnap
-          .data()!['followers']
+          .data()!['networks']
           .contains(FirebaseAuth.instance.currentUser!.uid);
       setState(() {});
     } catch (e) {

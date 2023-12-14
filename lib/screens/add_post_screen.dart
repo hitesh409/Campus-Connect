@@ -3,7 +3,7 @@ import 'package:campus_connect_app/models/user.dart';
 import 'package:campus_connect_app/providers/user_provider.dart';
 import 'package:campus_connect_app/resources/firestore_methods.dart';
 import 'package:campus_connect_app/utils/colors.dart';
-import 'package:campus_connect_app/utils/utils.dart';
+import 'package:campus_connect_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +110,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Center(
             child: IconButton(
@@ -133,10 +133,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: [
                 TextButton(
                     onPressed: () => postImage(
-                          user.uid,
-                          user.username,
-                          user.userid,
-                          user.photoUrl,
+                          user?.uid ?? 'DefauliUid',
+                          user?.username ?? 'DefauliUid',
+                          user?.userid ?? 'DefauliUid',
+                          user?.photoUrl ?? 'DefauliUid',
                         ),
                     child: const Text(
                       "Post",
@@ -161,7 +161,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                      user.photoUrl,
+                      user?.photoUrl ?? 'DefauliUid',
                     ),
                   ),
                   SizedBox(

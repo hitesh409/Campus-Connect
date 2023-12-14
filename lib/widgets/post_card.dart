@@ -4,7 +4,7 @@ import 'package:campus_connect_app/resources/firestore_methods.dart';
 import 'package:campus_connect_app/screens/comment_screen.dart';
 import 'package:campus_connect_app/utils/colors.dart';
 import 'package:campus_connect_app/utils/globalvariables.dart';
-import 'package:campus_connect_app/utils/utils.dart';
+import 'package:campus_connect_app/utils/util.dart';
 import 'package:campus_connect_app/widgets/like_animation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final model.User user = Provider.of<UserProvider>(context).getUser;
+    final model.User? user = Provider.of<UserProvider>(context).getUser;
     final width = MediaQuery.of(context).size.width;
 
     return Container(
@@ -110,7 +110,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                 ),
-                widget.snap['uid'].toString() == user.uid
+                widget.snap['uid'].toString() == user?.uid
                     ? IconButton(
                         onPressed: () {
                           showDialog(
@@ -159,7 +159,7 @@ class _PostCardState extends State<PostCard> {
             onDoubleTap: () {
               FirestoreMethods().likePost(
                 widget.snap['postId'].toString(),
-                user.uid,
+                user?.uid ?? 'DefauliUid',
                 widget.snap['likes'],
               );
               setState(() {
@@ -204,10 +204,10 @@ class _PostCardState extends State<PostCard> {
           Row(
             children: <Widget>[
               LikeAnimation(
-                isAnimating: widget.snap['likes'].contains(user.uid),
+                isAnimating: widget.snap['likes'].contains(user?.uid),
                 smallLike: true,
                 child: IconButton(
-                  icon: widget.snap['likes'].contains(user.uid)
+                  icon: widget.snap['likes'].contains(user?.uid)
                       ? const Icon(
                           Icons.favorite,
                           color: Colors.red,
@@ -217,7 +217,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                   onPressed: () => FirestoreMethods().likePost(
                     widget.snap['postId'].toString(),
-                    user.uid,
+                    user?.uid ?? 'DefauliUid',
                     widget.snap['likes'],
                   ),
                 ),

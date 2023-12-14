@@ -33,15 +33,26 @@ class _FeedScreenState extends State<FeedScreen> {
               ),
               actions: [
                 IconButton(
-                  onPressed: () => ProfileScreen(
-                      uid: FirebaseAuth.instance.currentUser!.uid),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileScreen(
+                              uid: FirebaseAuth.instance.currentUser!.uid)),
+                    );
+                  },
                   icon: const Icon(
                     Icons.person_2_outlined,
                     size: 35,
                   ),
                 ),
                 IconButton(
-                  onPressed: () => SearchScreen(),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()),
+                    );
+                  },
                   icon: const Icon(
                     Icons.search_rounded,
                     size: 35,

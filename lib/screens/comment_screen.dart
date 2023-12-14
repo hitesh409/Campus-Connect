@@ -2,7 +2,7 @@ import 'package:campus_connect_app/models/user.dart';
 import 'package:campus_connect_app/providers/user_provider.dart';
 import 'package:campus_connect_app/resources/firestore_methods.dart';
 import 'package:campus_connect_app/utils/colors.dart';
-import 'package:campus_connect_app/utils/utils.dart';
+import 'package:campus_connect_app/utils/util.dart';
 import 'package:campus_connect_app/widgets/comment_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +87,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(user.photoUrl),
+                backgroundImage: NetworkImage(user?.photoUrl ?? 'DefauliUid'),
                 radius: 18,
               ),
               Expanded(
@@ -96,7 +96,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   child: TextField(
                     controller: commentEditingController,
                     decoration: InputDecoration(
-                      hintText: 'Comment as ${user.username}',
+                      hintText: 'Comment as ${user?.username ?? 'DefauliUid'}',
                       border: InputBorder.none,
                     ),
                   ),
@@ -104,9 +104,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
               ),
               InkWell(
                 onTap: () => postComment(
-                  user.uid,
-                  user.username,
-                  user.photoUrl,
+                  user?.uid ?? 'DefauliUid',
+                  user?.username ?? 'DefauliUid',
+                  user?.photoUrl ?? 'DefauliUid',
                 ),
                 child: Container(
                   padding:

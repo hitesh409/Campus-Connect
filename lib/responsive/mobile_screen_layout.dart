@@ -42,7 +42,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User? user = Provider.of<UserProvider>(context).getUser;
 
     return Scaffold(
       body: PageView(

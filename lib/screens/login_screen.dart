@@ -4,7 +4,7 @@ import 'package:campus_connect_app/responsive/responsive_layout_screen.dart';
 import 'package:campus_connect_app/responsive/web_screen_layout.dart';
 import 'package:campus_connect_app/screens/signup_screen.dart';
 import 'package:campus_connect_app/utils/colors.dart';
-import 'package:campus_connect_app/utils/utils.dart';
+import 'package:campus_connect_app/utils/util.dart';
 import 'package:campus_connect_app/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
